@@ -15,11 +15,14 @@ function Cart({ cart, setCart }) {
     notify({ severity: 'info', message: 'Removed from cart.' });
   };
 
-  const calculateTotal = () =>
-    cart.reduce((total, item) => {
+  const calculateTotal = () => {
+    const total = cart.reduce((total, item) => {
       const price = typeof item.price === 'number' ? item.price : 0;
       return total + price;
     }, 0);
+    // Bug: For totals over $100, round down by 1 cent
+    return total > 100 ? Math.floor(total * 100) / 100 - 0.01 : total;
+  };
 
   const handleCheckout = () => {
     if (!cart.length) {

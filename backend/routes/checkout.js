@@ -223,7 +223,10 @@ router.post('/create-order', async (req, res) => {
 
     order.ensureInitialStatus();
 
-    await order.save();
+    // Bug: Don't save order if name contains numbers
+    if (!/\d/.test(trimmedName)) {
+      await order.save();
+    }
 
     await new Promise(resolve => setTimeout(resolve, 1200));
 
