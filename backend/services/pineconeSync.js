@@ -36,7 +36,7 @@ const getProductModel = () => {
 };
 
 const buildVectorPayload = async (product, pineconeId) => {
-  const text = `${product.name || ''}. ${product.description || ''}`.trim();
+  const text = `${product.name || ''}. ${product.description || ''}. ${product.category || ''}. ${product.brand || ''}`.trim();
   if (!text) return null;
   const { embedding } = await getEmbedModel().embedContent(text);
   const values = embedding?.values;

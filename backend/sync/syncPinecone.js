@@ -90,7 +90,7 @@ module.exports = async function syncPinecone() {
     const vectors = [];
     const syncedIds = [];
     for (const doc of batch) {
-      const text = `${doc.name || ''}. ${doc.description || ''}`.trim();
+      const text = `${doc.name || ''}. ${doc.description || ''}. ${doc.category || ''}. ${doc.brand || ''}`.trim();
       if (!text) continue;
       try {
         const embedding = (await embedModel.embedContent(text)).embedding.values;
